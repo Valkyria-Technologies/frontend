@@ -2,25 +2,26 @@ import { useEffect, useState } from 'react';
 import api from '../../utils/api';
 
 export default function Documents() {
-  const [documents, setDocuments] = useState([{ id: 1, title: 'abc' }]);
-  // const [error, setError] = useState(null);
+  const [documents, setDocuments] = useState([]);
+  const [error, setError] = useState(null);
 
-  // useEffect(() => {
-  //   const fetchDocuments = async () => {
-  //     try {
-  //       const response = await api.get('/documents');
-  //       setDocuments(response.data);
-  //     } catch (err) {
-  //       setError(err.response?.data?.error || 'Failed to fetch documents');
-  //     }
-  //   };
+  useEffect(() => {
+    const fetchDocuments = async () => {
+      try {
+        const response = await api.get('api/v1/documents');
+        debugger
+        setDocuments(response.data);
+      } catch (err) {
+        setError(err.response?.data?.error || 'Failed to fetch documents');
+      }
+    };
 
-  //   fetchDocuments();
-  // }, []);
+    fetchDocuments();
+  }, []);
 
-  // if (error) {
-  //   return <p>Error: {error}</p>;
-  // }
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
 
   return (
     <div>
